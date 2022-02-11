@@ -95,6 +95,8 @@ $(document).ready(() => {
 
         $('#monoTotal').val(numeral(monoTotal).format('0,0.00'));
         $('#stakingTotal').val(numeral(stakingTotal).format('0,0.00'));
+        $('#monoPS').val(numeral(monoTotal / 86_400).format('0,0.0000'));
+        $('#stakingPS').val(numeral(stakingTotal / 86_400).format('0,0.0000'));
     };
 
     $('#totalInvestment').on('keyup', () => {
