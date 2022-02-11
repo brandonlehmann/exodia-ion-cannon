@@ -1,0 +1,262 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Ion Cannon</title>
+    <script src="./js/bundle.min.js"></script>
+    <style>
+        * {
+            font-size: 14px;
+            color: #ffffff;
+            font-family: "Segoe UI", sans-serif
+        }
+
+        .exod-bg {
+            background-color: #0d120e;
+        }
+
+        .card, .form-control {
+            background-color: #1a1c1a;
+            border-color: #000000;
+            color: #000000;
+        }
+
+        .form-control:focus {
+            background-color: #ffffff;
+            color: #1a1c1a;
+        }
+
+        .form-control:read-only {
+            background-color: #131313;
+            color: #ffffff;
+        }
+
+        .card-header {
+            background-color: rgb(55, 110, 29);
+        }
+
+        .pulse {
+            background-color: rgb(55, 110, 29);
+            position: relative;
+            animation: animate 3s linear infinite
+        }
+
+        .pulse input {
+            position: relative;
+            display: flex;
+        }
+
+        @keyframes animate {
+            0% {
+                box-shadow: 0 0 0 0 rgb(55, 110, 29, 0.7), 0 0 0 0 rgb(55, 110, 29, 0.7)
+            }
+
+            40% {
+                box-shadow: 0 0 0 10px rgb(55, 110, 29, 0.7), 0 0 0 0 rgb(55, 110, 29, 0.7)
+            }
+
+            80% {
+                box-shadow: 0 0 0 10px rgb(255, 109, 74, 0), 0 0 0 5px rgb(255, 109, 74, 0)
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgb(255, 109, 74, 0), 0 0 0 5px rgb(255, 109, 74, 0)
+            }
+        }
+    </style>
+</head>
+<body class="antialiased exod-bg bg-gradient">
+<div class="page" id="wholePage">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-sm-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Investment</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control bg-white" id="totalInvestment" value="1000">
+                            <label for="totalInvestment" class="text-black">Total Investment ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="EXOD" readonly="readonly">
+                            <label for="EXOD">EXOD for The Monolith ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="wsEXOD" readonly="readonly">
+                            <label for="wsEXOD">wsEXOD for The Monolith ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="gOHM" readonly="readonly">
+                            <label for="gOHM">gOHM for The Monolith ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="MAI" readonly="readonly">
+                            <label for="MAI">MAI for The Monolith ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="wFTM" readonly="readonly">
+                            <label for="wFTM">wFTM for The Monolith ($)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Current Rates</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="BEETsFeesAPR" readonly="readonly">
+                            <label for="BEETsFeesAPR">BEETs LP Fees APR (%)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="BEETsRewardAPR" readonly="readonly">
+                            <label for="BEETsRewardAPR">BEETs Reward APR (%)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="BEETsFeesDaily" readonly="readonly">
+                            <label for="BEETsFeesDaily">Daily BEETs LP Fees APR (%)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="BEETsRewardDaily" readonly="readonly">
+                            <label for="BEETsRewardDaily">Daily BEETs Reward APR (%)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="YearlyRewardYield" readonly="readonly">
+                            <label for="YearlyRewardYield">Yearly Staking Reward APY (%)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="DailyRewardYield" readonly="readonly">
+                            <label for="DailyRewardYield">Daily Staking Reward APY (%)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-sm-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>The Monolith</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="monoPoolFees" readonly="readonly">
+                            <label for="monoPoolFees">Pool Fees ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="monoBEETsReward" readonly="readonly">
+                            <label for="monoBEETsReward">BEETs Reward ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="monoEXOD" readonly="readonly">
+                            <label for="monoEXOD">EXOD Change ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="monowsEXOD" readonly="readonly">
+                            <label for="monowsEXOD">wsEXOD Rebase ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="monoTotal" readonly="readonly">
+                            <label for="monoTotal">Total Daily ($)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Staking</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="stakingPoolFees" readonly="readonly" value="0">
+                            <label for="stakingPoolFees">Pool Fees ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="stakingBEETsReward" readonly="readonly" value="0">
+                            <label for="stakingBEETsReward">BEETs Reward ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="stakingEXOD" readonly="readonly">
+                            <label for="stakingEXOD">EXOD Change ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="stakingwsEXOD" readonly="readonly">
+                            <label for="stakingwsEXOD">wsEXOD Rebase ($)</label>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="stakingTotal" readonly="readonly">
+                            <label for="stakingTotal">Total Daily ($)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
