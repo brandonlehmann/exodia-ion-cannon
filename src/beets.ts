@@ -118,7 +118,8 @@ $(document).ready(async () => {
         ],
         searching: false,
         info: false,
-        paging: false
+        paging: false,
+        responsive: true
     }).columns.adjust().draw(false);
 
     const timer = new Metronome(120_000, true);
@@ -161,8 +162,7 @@ $(document).ready(async () => {
                                 const beetsValue = vote.totalVotes * fbeets_price;
                                 const exodValue = balance * exod_price;
 
-                                const qualified =
-                                    (balance >= 0.33 || exodValue >= beetsValue * 0.04) && vote.totalVotes > 0;
+                                const qualified = (exodValue >= beetsValue * 0.04) && vote.totalVotes > 0;
 
                                 table.row.add([
                                     address,
