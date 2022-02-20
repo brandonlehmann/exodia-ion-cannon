@@ -6,6 +6,31 @@ import Metronome from 'node-metronome';
 import { getSnapShotVoteCounts } from '@brandonlehmann/exodia-data-harvester';
 import numeral from 'numeral';
 import { ethers } from '@brandonlehmann/ethers-providers';
+import fetch from 'cross-fetch';
+
+const fetch_price = async (symbol: string | number): Promise<number> => {
+    return (await fetch('https://cmc-fetch.turtlecoin.workers.dev/?symbol=' + symbol.toString())).json();
+};
+
+const getfBEETsPrice = async (): Promise<number> => {
+    const beets = await fetch_price('beets');
+    const ftm = await fetch_price('ftm');
+
+    const bpt = (0.78 * beets) + (0.1 * ftm);
+
+    return (bpt * 1.0145);
+};
+
+const getQueryStringParam = <T>(key: string): T | undefined => {
+    const queryString = window.location.search.substring(1);
+    const params = queryString.split('&');
+    for (let i = 0; i < params.length; i++) {
+        const param = params[i].split('=');
+        if (param[0] === key) {
+            return (param[1] as any);
+        }
+    }
+};
 
 $(document).ready(async () => {
     const provider = new ethers.providers.JsonRpcProvider('https://rpc.ftm.tools');
@@ -52,10 +77,40 @@ $(document).ready(async () => {
                 targets: [2],
                 render: function (data, type) {
                     if (type === 'display') {
-                        data = numeral(data).format('0,0.000000000');
+                        data = numeral(data).format('0,0.00000000%');
                     }
                     return data;
                 }
+            },
+            {
+                targets: [4],
+                render: function (data, type) {
+                    if (type === 'display') {
+                        data = numeral(data).format('0,0.0000');
+                    }
+                    return data;
+                }
+            },
+            {
+                targets: [3, 5],
+                render: function (data, type) {
+                    if (type === 'display') {
+                        data = numeral(data).format('0,0.00');
+                    }
+                    return data;
+                }
+            },
+            {
+                targets: [0],
+                className: 'fixed-width-font'
+            },
+            {
+                targets: [1, 2, 3, 4, 5],
+                className: 'dt-right'
+            },
+            {
+                targets: [6],
+                className: 'dt-center'
             }
         ],
         searching: false,
@@ -67,10 +122,15 @@ $(document).ready(async () => {
 
     timer.on('tick', async () => {
         try {
+            const fbeets_price = await getfBEETsPrice();
+            const exod_price = await fetch_price('exod');
+
             timer.paused = true;
 
-            const [voterRecords, rollCall] = await getSnapShotVoteCounts(
-                '0xd00700ca5bf26078d979a55fbbb1f25651791afd1aff6f951422fa6903e3424c');
+            const proposal = getQueryStringParam<string>('proposal') ||
+                '0xd00700ca5bf26078d979a55fbbb1f25651791afd1aff6f951422fa6903e3424c';
+
+            const [voterRecords, rollCall] = await getSnapShotVoteCounts(proposal);
 
             let ourVotes = 0;
             let totalVotes = 0;
@@ -93,10 +153,20 @@ $(document).ready(async () => {
                     if (vote.poolName?.toLowerCase().includes('monolith')) {
                         balanceOf(address)
                             .then(balance => {
+                                const beetsValue = vote.totalVotes * fbeets_price;
+                                const exodValue = balance * exod_price;
+
+                                const qualified =
+                                    (balance >= 0.33 || exodValue >= beetsValue * 0.04) && vote.totalVotes > 0;
+
                                 table.row.add([
                                     address,
                                     vote.totalVotes,
-                                    balance
+                                    vote.totalVotes / ourVotes,
+                                    beetsValue,
+                                    balance,
+                                    exodValue,
+                                    (qualified) ? 'Yes' : 'No'
                                 ]).draw();
                             })
                             .catch(e => console.log(e.toString()));
