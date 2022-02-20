@@ -6,7 +6,8 @@ const path = require('path');
 module.exports = {
     mode: 'production',
     entry: {
-        bundle: '/dist/app.js'
+        bundle: '/dist/app.js',
+        beets: '/dist/beets.js'
     },
     output: {
         path: path.resolve(__dirname, 'docs/js'),

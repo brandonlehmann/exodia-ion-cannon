@@ -14,7 +14,8 @@
   "author": "Brandon Lehmann <brandonlehmann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@brandonlehmann/exodia-monolith-comparison": "^0.0.2",
+    "@brandonlehmann/ethers-providers": "^0.0.17",
+    "@brandonlehmann/exodia-data-harvester": "^0.0.4",
     "@popperjs/core": "^2.11.2",
     "@types/bootstrap": "^5.1.9",
     "@types/jquery": "^3.5.13",
@@ -30,6 +31,8 @@
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
     "css-loader": "^6.6.0",
+    "datatables.net-responsive": "^2.2.9",
+    "datatables.responsive.typings": "^1.0.3",
     "eslint": "7",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",

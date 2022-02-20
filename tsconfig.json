@@ -6,7 +6,7 @@
       "dom",
       "scripthost"
     ],
-    "types": ["jquery", "bootstrap"],
+    "types": ["jquery", "bootstrap", "datatables.net"],
     "module": "commonjs",
     "declaration": true,
     "outDir": "./dist",

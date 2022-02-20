@@ -2,7 +2,13 @@ import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Metronome from 'node-metronome';
-import { getBEETsPoolData, getDAOData, IBeetsPoolData, IDAOData } from '@brandonlehmann/exodia-monolith-comparison';
+import {
+    BeetsPool,
+    getBEETsPoolData,
+    getDAOData,
+    IBeetsPoolData,
+    IDAOData
+} from '@brandonlehmann/exodia-data-harvester';
 import numeral from 'numeral';
 
 const compoundRate = (rate: number, days = 1, epochsPerDay = 1): number => {
@@ -104,7 +110,7 @@ $(document).ready(() => {
     });
 
     timer.on('tick', async () => {
-        beets = await getBEETsPoolData();
+        beets = await getBEETsPoolData(BeetsPool.MONOLITH);
         staking = await getDAOData();
 
         updateDisplay();
