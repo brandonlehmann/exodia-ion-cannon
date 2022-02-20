@@ -59,6 +59,9 @@ $(document).ready(async () => {
     };
 
     const table = $('#beetsVoters').DataTable({
+        language: {
+            emptyTable: 'Please wait while data is loaded...'
+        },
         order: [
             [1, 'desc'],
             [2, 'desc']
