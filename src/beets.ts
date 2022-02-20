@@ -133,7 +133,7 @@ $(document).ready(async () => {
             const proposal = getQueryStringParam<string>('proposal') ||
                 '0xd00700ca5bf26078d979a55fbbb1f25651791afd1aff6f951422fa6903e3424c';
 
-            const [voterRecords, rollCall] = await getSnapShotVoteCounts(proposal);
+            const [voterRecords, rollCall, voteTitle] = await getSnapShotVoteCounts(proposal);
 
             let ourVotes = 0;
             let totalVotes = 0;
@@ -148,6 +148,8 @@ $(document).ready(async () => {
             $('#voteInfo').text(
                 numeral(ourVotes).format('0,0') + ' votes (' +
                 numeral((ourVotes / totalVotes)).format('0,0.00%') + ')');
+
+            $('#voteTitle').text(voteTitle);
 
             table.clear();
 
