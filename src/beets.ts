@@ -2,6 +2,7 @@ import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'datatables.net-responsive';
+import 'datatables.net-fixedheader';
 import Metronome from 'node-metronome';
 import { getSnapShotVoteCounts } from '@brandonlehmann/exodia-data-harvester';
 import numeral from 'numeral';
@@ -119,7 +120,8 @@ $(document).ready(async () => {
         searching: false,
         info: false,
         paging: false,
-        responsive: true
+        responsive: true,
+        fixedHeader: true
     }).columns.adjust().draw(false);
 
     const timer = new Metronome(120_000, true);
