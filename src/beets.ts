@@ -87,7 +87,7 @@ $(document).ready(async () => {
                 }
             },
             {
-                targets: [4],
+                targets: [4, 6],
                 render: function (data, type) {
                     if (type === 'display') {
                         data = numeral(data).format('0,0.0000');
@@ -164,7 +164,11 @@ $(document).ready(async () => {
                                 const beetsValue = vote.totalVotes * fbeets_price;
                                 const exodValue = balance * exod_price;
 
-                                const qualified = (exodValue >= 0.33 || exodValue >= beetsValue * 0.04) && vote.totalVotes > 0;
+                                const beetsRequiredValue = (beetsValue / exod_price) * 0.04;
+                                const requiredBalance = Math.max(beetsRequiredValue, 0.33);
+
+                                const qualified = (balance > requiredBalance) &&
+                                    vote.totalVotes > 0;
 
                                 table.row.add([
                                     address,
@@ -173,6 +177,7 @@ $(document).ready(async () => {
                                     beetsValue,
                                     balance,
                                     exodValue,
+                                    requiredBalance,
                                     (qualified) ? 'Yes' : 'No'
                                 ]).draw();
                             })
