@@ -167,7 +167,7 @@ $(document).ready(async () => {
                                 const beetsRequiredValue = (beetsValue / exod_price) * 0.04;
                                 const requiredBalance = Math.max(beetsRequiredValue, 0.33);
 
-                                const qualified = (balance > requiredBalance) &&
+                                const qualified = (balance >= requiredBalance) &&
                                     vote.totalVotes > 0;
 
                                 table.row.add([
