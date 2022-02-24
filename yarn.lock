@@ -41,10 +41,10 @@
     "@turtlecoin/bytestream" "^0.0.17"
     cross-fetch "^3.1.5"
 
-"@brandonlehmann/exodia-data-harvester@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@brandonlehmann/exodia-data-harvester/-/exodia-data-harvester-0.0.5.tgz#1f16f1dbcf277d9ff00fc0de095d04f2e4ac0973"
-  integrity sha512-D+ahM2noIGCLR004mDhwtALbr+ZSyry2UQT7lkrS+GXDJGtJoXl7xzKy4SYbQrFmLb9WBh4HoKCS7QH4a8nPoA==
+"@brandonlehmann/exodia-data-harvester@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@brandonlehmann/exodia-data-harvester/-/exodia-data-harvester-0.0.6.tgz#a8f05db4e7d71e26dde917eb47d3b3d432919700"
+  integrity sha512-dZA59k6T1fI5efj5xxcMxbvKxQYWNMqL3QzfNXA8B28avMjSdS9BgQkkNQCou9beCDsTvCOsWHyfI1lR7NdkUQ==
   dependencies:
     "@brandonlehmann/ethers-providers" "^0.0.17"
     "@brandonlehmann/exodia-data-harvester" "^0.0.4"

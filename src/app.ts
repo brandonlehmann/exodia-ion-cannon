@@ -7,7 +7,8 @@ import {
     getBEETsPoolData,
     getDAOData,
     IBeetsPoolData,
-    IDAOData
+    IDAOData,
+    getBlockTiming
 } from '@brandonlehmann/exodia-data-harvester';
 import numeral from 'numeral';
 
@@ -15,8 +16,10 @@ const compoundRate = (rate: number, days = 1, epochsPerDay = 1): number => {
     return Math.pow(1 + rate, epochsPerDay * days) - 1;
 };
 
-const calculateRebaseRate = (dao: IDAOData): [number, number] => {
-    const bps = dao.blockAverage.toJSNumber() / Math.pow(10, dao.blockPrecision);
+const calculateRebaseRate = async (dao: IDAOData): Promise<[number, number]> => {
+    const bpsData = await getBlockTiming();
+
+    const bps = bpsData.blocksPerSecond;
 
     const blocksPerDay = bps * 86_400;
 
@@ -33,7 +36,7 @@ $(document).ready(() => {
     let beets: IBeetsPoolData;
     let staking: IDAOData;
 
-    const updateDisplay = () => {
+    const updateDisplay = async () => {
         const investment = parseFloat(($('#totalInvestment').val() as number).toString().replace(',', ''));
         const split = numeral(investment / 5).format('0,0.00');
 
@@ -67,7 +70,7 @@ $(document).ready(() => {
         }
 
         if (staking) {
-            const [dailyRebaseRate, yearlyRebaseRate] = calculateRebaseRate(staking);
+            const [dailyRebaseRate, yearlyRebaseRate] = await calculateRebaseRate(staking);
             $('#YearlyRewardYield').val(numeral(yearlyRebaseRate * 100).format('0,0.000000'));
             $('#DailyRewardYield').val(numeral(dailyRebaseRate * 100).format('0,0.000000'));
 
