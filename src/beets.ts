@@ -14,8 +14,8 @@ const fetch_price = async (symbol: string | number): Promise<number> => {
 };
 
 const getfBEETsPrice = async (): Promise<number> => {
-    const beets = await fetch_price('beets');
-    const ftm = await fetch_price('ftm');
+    const beets = 0.6879; // await fetch_price('beets');
+    const ftm = 1.3089; // await fetch_price('ftm');
 
     const bpt = (0.78 * beets) + (0.1 * ftm);
 
@@ -129,7 +129,7 @@ $(document).ready(async () => {
     timer.on('tick', async () => {
         try {
             const fbeets_price = await getfBEETsPrice();
-            const exod_price = await fetch_price('exod');
+            const exod_price = 153.18; // await fetch_price('exod');
 
             timer.paused = true;
 
