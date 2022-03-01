@@ -15,7 +15,7 @@
   "license": "MIT",
   "devDependencies": {
     "@brandonlehmann/ethers-providers": "^0.0.17",
-    "@brandonlehmann/exodia-data-harvester": "^0.0.6",
+    "@brandonlehmann/exodia-data-harvester": "^0.0.11",
     "@popperjs/core": "^2.11.2",
     "@types/bootstrap": "^5.1.9",
     "@types/jquery": "^3.5.13",
