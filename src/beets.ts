@@ -13,13 +13,22 @@ const fetch_price = async (symbol: string | number): Promise<number> => {
     return (await fetch('https://cmc-fetch.turtlecoin.workers.dev/?symbol=' + symbol.toString())).json();
 };
 
-const getfBEETsPrice = async (): Promise<number> => {
-    const beets = 0.6879; // await fetch_price('beets');
-    const ftm = 1.3089; // await fetch_price('ftm');
+const getfBEETsPrice = async (fixed = true): Promise<number> => {
+    if (fixed) {
+        const beets = 0.6879; // await fetch_price('beets');
+        const ftm = 1.3089; // await fetch_price('ftm');
 
-    const bpt = (0.78 * beets) + (0.1 * ftm);
+        const bpt = (0.74 * beets) + (0.12 * ftm);
 
-    return (bpt * 1.0145);
+        return (bpt * 1.0145);
+    } else {
+        const beets = await fetch_price('beets');
+        const ftm = await fetch_price('ftm');
+
+        const bpt = (0.78 * beets) + (0.1 * ftm);
+
+        return (bpt * 1.0152);
+    }
 };
 
 const getQueryStringParam = <T>(key: string): T | undefined => {
@@ -128,13 +137,20 @@ $(document).ready(async () => {
 
     timer.on('tick', async () => {
         try {
-            const fbeets_price = await getfBEETsPrice();
-            const exod_price = 153.18; // await fetch_price('exod');
-
             timer.paused = true;
 
             const proposal = getQueryStringParam<string>('proposal') ||
                 '0xd00700ca5bf26078d979a55fbbb1f25651791afd1aff6f951422fa6903e3424c';
+
+            let fbeets_price = 0;
+            let exod_price = 0;
+            if (proposal === '0xd00700ca5bf26078d979a55fbbb1f25651791afd1aff6f951422fa6903e3424c') {
+                fbeets_price = await getfBEETsPrice();
+                exod_price = 153.18;
+            } else {
+                fbeets_price = await getfBEETsPrice(false);
+                exod_price = await fetch_price('exod');
+            }
 
             const [voterRecords, rollCall, voteTitle] = await getSnapShotVoteCounts(proposal);
 
@@ -164,22 +180,35 @@ $(document).ready(async () => {
                                 const beetsValue = vote.totalVotes * fbeets_price;
                                 const exodValue = balance * exod_price;
 
-                                const beetsRequiredValue = (beetsValue / exod_price) * 0.04;
-                                const requiredBalance = Math.max(beetsRequiredValue, 0.33);
+                                if (proposal === '0xd00700ca5bf26078d979a55fbbb1f25651791afd1aff6f951422fa6903e3424c') {
+                                    const beetsRequiredValue = (beetsValue / exod_price) * 0.04;
+                                    const requiredBalance = Math.max(beetsRequiredValue, 0.33);
 
-                                const qualified = (balance >= requiredBalance) &&
-                                    vote.totalVotes > 0;
+                                    const qualified = (balance >= requiredBalance) &&
+                                        vote.totalVotes > 0;
 
-                                table.row.add([
-                                    address,
-                                    vote.totalVotes,
-                                    vote.totalVotes / ourVotes,
-                                    beetsValue,
-                                    balance,
-                                    exodValue,
-                                    requiredBalance,
-                                    (qualified) ? 'Yes' : 'No'
-                                ]).draw();
+                                    table.row.add([
+                                        address,
+                                        vote.totalVotes,
+                                        vote.totalVotes / ourVotes,
+                                        beetsValue,
+                                        balance,
+                                        exodValue,
+                                        requiredBalance,
+                                        (qualified) ? 'Yes' : 'No'
+                                    ]).draw();
+                                } else {
+                                    table.row.add([
+                                        address,
+                                        vote.totalVotes,
+                                        vote.totalVotes / ourVotes,
+                                        beetsValue,
+                                        balance,
+                                        exodValue,
+                                        'N/A',
+                                        'N/A'
+                                    ]);
+                                }
                             })
                             .catch(e => console.log(e.toString()));
                     }
