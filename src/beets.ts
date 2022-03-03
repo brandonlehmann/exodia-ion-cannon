@@ -43,6 +43,9 @@ const getQueryStringParam = <T>(key: string): T | undefined => {
 };
 
 $(document).ready(async () => {
+    const proposal = getQueryStringParam<string>('proposal') ||
+        '0xd00700ca5bf26078d979a55fbbb1f25651791afd1aff6f951422fa6903e3424c';
+
     const provider = new ethers.providers.JsonRpcProvider('https://rpc.ftm.tools');
     const contract = new ethers.Contract('0xa3Cbd851460477C7b7aAA381da7ee4043462657F',
         '[{"inputs":[],"name":"EXOD","outputs":' +
@@ -124,6 +127,10 @@ $(document).ready(async () => {
             {
                 targets: [6],
                 className: 'dt-center'
+            },
+            {
+                targets: [6, 7],
+                visible: (proposal === '0xd00700ca5bf26078d979a55fbbb1f25651791afd1aff6f951422fa6903e3424c')
             }
         ],
         searching: false,
@@ -138,9 +145,6 @@ $(document).ready(async () => {
     timer.on('tick', async () => {
         try {
             timer.paused = true;
-
-            const proposal = getQueryStringParam<string>('proposal') ||
-                '0xd00700ca5bf26078d979a55fbbb1f25651791afd1aff6f951422fa6903e3424c';
 
             let fbeets_price = 0;
             let exod_price = 0;
