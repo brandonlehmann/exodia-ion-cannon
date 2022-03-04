@@ -211,7 +211,7 @@ $(document).ready(async () => {
                                         exodValue,
                                         'N/A',
                                         'N/A'
-                                    ]);
+                                    ]).draw();
                                 }
                             })
                             .catch(e => console.log(e.toString()));
